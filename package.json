@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "dist/main.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "lint": "eslint --fix src/**/*.ts",
     "clear": "rimraf -g dist/**/*",
     "build": "tsc",
     "prebuild": "yarpm run clear && yarpm run lint",
-    "start": "node dist/main.js",
+    "start": "node --experimental-specifier-resolution=node dist/main.js",
     "prestart": "yarpm run build"
   },
   "devDependencies": {
