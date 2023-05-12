@@ -1,7 +1,7 @@
-import { EmbedBuilder } from "discord.js";
+import { DjmaxButton, TierResponse } from "v-archive-api-client";
 import { Score } from "../../../db/entity/score";
 
-const createEmbed = (username: string, totalPatterns: number, scores: Score[]) => {
+const createEmbedDescription = (username: string, totalPatterns: number, scores: Score[]) => {
     const sorted = scores
         .sort((a, b) => {
             if (!b.pattern.floor && !a.pattern.floor) {
@@ -52,32 +52,30 @@ const createEmbed = (username: string, totalPatterns: number, scores: Score[]) =
             ? `Level: ${sorted[0].pattern.level}` : undefined;
     const totalClear = sorted.length;
 
-    const embed = new EmbedBuilder()
-        .setDescription(
-            `Perfect: ${totalPerfect} / ${totalPatterns}`
-            + ` (${((totalPerfect / totalPatterns) * 100).toFixed(2)}%)`
-            + ` ${highestPerfect ? `[Highest ${highestPerfect}]` : ""}`
-            + `\nMax Combo: ${totalMaxCombo} / ${totalPatterns}`
-            + ` (${((totalMaxCombo / totalPatterns) * 100).toFixed(2)}%)`
-            + ` ${highestMaxCombo ? `[Highest ${highestMaxCombo}]` : ""}`
-            + `\nOver 99.9: ${totalOver999} / ${totalPatterns}`
-            + ` (${((totalOver999 / totalPatterns) * 100).toFixed(2)}%)`
-            + ` ${highestOver999 ? `[Highest ${highestOver999}]` : ""}`
-            + `\nOver 99.5: ${totalOver995} / ${totalPatterns}`
-            + ` (${((totalOver995 / totalPatterns) * 100).toFixed(2)}%)`
-            + ` ${highestOver995 ? `[Highest ${highestOver995}]` : ""}`
-            + `\nOver 99: ${totalOver99} / ${totalPatterns}`
-            + ` (${((totalOver99 / totalPatterns) * 100).toFixed(2)}%)`
-            + ` ${highestOver99 ? `[Highest ${highestOver99}]` : ""}`
-            + `\nOver 97: ${totalOver97} / ${totalPatterns}`
-            + ` (${((totalOver97 / totalPatterns) * 100).toFixed(2)}%)`
-            + ` ${highestOver97 ? `[Highest ${highestOver97}]` : ""}`
-            + `\nClear: ${totalClear} / ${totalPatterns}`
-            + ` (${((totalClear / totalPatterns) * 100).toFixed(2)}%)`
-            + ` ${highestClear ? `[Highest ${highestClear}]` : ""}`
-        );
-
-    return embed;
+    return `Perfect: ${totalPerfect} / ${totalPatterns}`
+        + ` (${((totalPerfect / totalPatterns) * 100).toFixed(2)}%)`
+        + ` ${highestPerfect ? `[Highest ${highestPerfect}]` : ""}`
+        + `\nMax Combo: ${totalMaxCombo} / ${totalPatterns}`
+        + ` (${((totalMaxCombo / totalPatterns) * 100).toFixed(2)}%)`
+        + ` ${highestMaxCombo ? `[Highest ${highestMaxCombo}]` : ""}`
+        + `\nOver 99.9: ${totalOver999} / ${totalPatterns}`
+        + ` (${((totalOver999 / totalPatterns) * 100).toFixed(2)}%)`
+        + ` ${highestOver999 ? `[Highest ${highestOver999}]` : ""}`
+        + `\nOver 99.5: ${totalOver995} / ${totalPatterns}`
+        + ` (${((totalOver995 / totalPatterns) * 100).toFixed(2)}%)`
+        + ` ${highestOver995 ? `[Highest ${highestOver995}]` : ""}`
+        + `\nOver 99: ${totalOver99} / ${totalPatterns}`
+        + ` (${((totalOver99 / totalPatterns) * 100).toFixed(2)}%)`
+        + ` ${highestOver99 ? `[Highest ${highestOver99}]` : ""}`
+        + `\nOver 97: ${totalOver97} / ${totalPatterns}`
+        + ` (${((totalOver97 / totalPatterns) * 100).toFixed(2)}%)`
+        + ` ${highestOver97 ? `[Highest ${highestOver97}]` : ""}`
+        + `\nClear: ${totalClear} / ${totalPatterns}`
+        + ` (${((totalClear / totalPatterns) * 100).toFixed(2)}%)`
+        + ` ${highestClear ? `[Highest ${highestClear}]` : ""}`;
 };
 
-export { createEmbed };
+const createTierString = (button: DjmaxButton, tier: TierResponse) => `${button}B Tier: ${tier.tier.name}`
+        + ` (Point: ${tier.tierPoint} / Top50: ${tier.top50sum})`;
+
+export { createEmbedDescription, createTierString };

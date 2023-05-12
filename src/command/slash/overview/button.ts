@@ -1,10 +1,11 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
 import { DjmaxButton } from "v-archive-api-client";
 import { BoardType, convertBoardToLevelRange } from "../../../api/scoreboard";
 import { getUser } from "../../../db/dao/user";
 import { getBoardPatternNums, getButtonPatternNums } from "../../../db/dao/pattern";
 import { getBoardScores, getButtonScores } from "../../../db/dao/score";
-import { createEmbed } from "./embed";
+import { fetchTier } from "../../../api/tier";
+import { createEmbedDescription, createTierString } from "./description";
 
 const doButton = async (
     interaction: ChatInputCommandInteraction,
@@ -36,7 +37,16 @@ const doButton = async (
             scores = await getBoardScores(username, button, board);
         }
 
-        embed = createEmbed(username, totalPatterns, scores)
+        let tierString = "";
+        try {
+            const tier = await fetchTier(username, button);
+            tierString = `${createTierString(button, tier)}\n`;
+        } catch (e) {
+            // ignore for invalid tier data
+        }
+
+        const description = `${tierString}${createEmbedDescription(username, totalPatterns, scores)}`;
+        embed = new EmbedBuilder().setDescription(description)
             .setTitle(`${button}B ${convertBoardToLevelRange(board)}: ${username}`)
             .setTimestamp(user.lastUpdate)
             .setFooter({ text: "Last update" });
