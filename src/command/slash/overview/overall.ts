@@ -7,17 +7,16 @@ import { createEmbedDescription, createTierString } from "./description";
 import { fetchAllTier } from "../../../api/tier";
 
 const doOverall = async (interaction: ChatInputCommandInteraction, username: string) => {
-    const user = await getUser(username);
+    const deferred = await interaction.deferReply();
 
+    const user = await getUser(username);
     if (!user) {
-        await interaction.reply(
+        await deferred.edit(
             `Invalid username '${username}'`
             + "\ndo '/renew' for renew user"
         );
         return;
     }
-
-    const deferred = await interaction.deferReply();
 
     let embed;
     try {
