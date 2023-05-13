@@ -22,9 +22,9 @@ const handleSlashCommand = async (interaction: ChatInputCommandInteraction) => {
     const start = new Date();
     console.log(
         `Run slash command: ${commandName} (${interaction.id})`
-        + `\n\tin guild: ${interaction.guild?.name} (${interaction.guild?.id})`
-        + `\n\tin channel: ${(interaction.channel as TextChannel).name} (${interaction.channel?.id})`
-        + `\n\tby user: ${interaction.user.tag} (${interaction.user.id})`
+        + `\n\tin guild: ${interaction?.guild?.name} (${interaction?.guild?.id})`
+        + `\n\tin channel: ${(interaction?.channel as TextChannel)?.name} (${interaction?.channel?.id})`
+        + `\n\tby user: ${interaction?.user?.tag} (${interaction?.user?.id})`
     );
     try {
         await command.exec(interaction);
