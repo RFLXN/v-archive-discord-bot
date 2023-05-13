@@ -45,7 +45,7 @@ const doOverall = async (interaction: ChatInputCommandInteraction, username: str
             .setFooter({ text: "Last update" });
     } catch (e) {
         console.error(e);
-        await interaction.reply("Error: Failed to create overview");
+        await deferred.edit("Error: Failed to create overview");
         return;
     }
 

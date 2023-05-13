@@ -62,7 +62,7 @@ const refreshSong: SlashCommand = {
 
                     patternData.push({
                         songTitle: song.title,
-                        pattern: patternName,
+                        patternType: patternName,
                         level: pattern.level,
                         floor: pattern?.floor,
                         button

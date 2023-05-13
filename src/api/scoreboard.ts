@@ -1,4 +1,10 @@
-import vArchiveApi, { Board, DjmaxButton, ScoreboardResponse } from "v-archive-api-client";
+import vArchiveApi, {
+    Board,
+    DjmaxButton,
+    DjmaxPattern,
+    DjmaxShortenPattern,
+    ScoreboardResponse
+} from "v-archive-api-client";
 
 const buttons: DjmaxButton[] = [4, 5, 6, 8];
 
@@ -17,6 +23,13 @@ const convertBoardToLevelRange = (board: BoardType) => {
     if (board == "SC5") return "SC 1~5";
     if (board == "SC10") return "SC 6~10";
     return "SC 11~15";
+};
+
+const convertShortenPattern = (pattern: DjmaxShortenPattern): DjmaxPattern => {
+    if (pattern == "NM") return "NORMAL";
+    if (pattern == "HD") return "HARD";
+    if (pattern == "MX") return "MAXIMUM";
+    return "SC";
 };
 
 const fetchScoreboard = async (userName: string, button: DjmaxButton, board: Board) => {
@@ -50,5 +63,5 @@ const fetchScoreboards = async (userName: string) => {
 };
 
 export {
-    fetchScoreboards, fetchScoreboard, BoardType, convertBoardToLevelRange
+    fetchScoreboards, fetchScoreboard, BoardType, convertBoardToLevelRange, convertShortenPattern
 };

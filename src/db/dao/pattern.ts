@@ -9,7 +9,7 @@ import { BoardType } from "../../api/scoreboard";
 interface PatternData {
     songTitle: number;
     button: DjmaxButton;
-    pattern: DjmaxPattern;
+    patternType: DjmaxPattern;
     level: number;
     floor?: number;
 }
@@ -74,7 +74,7 @@ const getBoardPatternNums = async (button: DjmaxButton, board: BoardType) => {
         return repo.count({
             where: {
                 button,
-                pattern: "SC"
+                patternType: "SC"
             }
         });
     }
@@ -111,7 +111,7 @@ const getBoardPatternNums = async (button: DjmaxButton, board: BoardType) => {
             where: {
                 button,
                 level: MoreThanOrEqual(12),
-                pattern: Not("SC")
+                patternType: Not("SC")
             }
         });
     }
@@ -120,7 +120,7 @@ const getBoardPatternNums = async (button: DjmaxButton, board: BoardType) => {
         where: {
             button,
             level: LessThan(12),
-            pattern: Not("SC")
+            patternType: Not("SC")
         }
     });
 };

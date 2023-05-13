@@ -23,7 +23,7 @@ class Pattern {
         type: "text",
         name: "PATTERN"
     })
-        pattern!: DjmaxPattern;
+        patternType!: DjmaxPattern;
 
     @Column({
         name: "LEVEL",

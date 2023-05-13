@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, SlashCommandStringOption } from "discord.js";
 import { NumberBoolean } from "v-archive-api-client";
 import { SlashCommand } from "../../type/command";
-import { fetchScoreboards } from "../../api/scoreboard";
+import { convertShortenPattern, fetchScoreboards } from "../../api/scoreboard";
 import { ScoreData, updateScore } from "../../db/dao/score";
 import { updateUser } from "../../db/dao/user";
 
@@ -56,7 +56,7 @@ const renew: SlashCommand = {
                             button: scoreboard.button,
                             fullCombo: (pattern.maxCombo === 1 ? 1 : 0) as NumberBoolean,
                             score: pattern.score,
-                            pattern: pattern.pattern
+                            patternType: convertShortenPattern(pattern.pattern)
                         };
                         processed.push(data);
                     }

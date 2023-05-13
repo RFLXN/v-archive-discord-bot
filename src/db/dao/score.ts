@@ -11,7 +11,7 @@ import { BoardType } from "../../api/scoreboard";
 interface ScoreData {
     songTitle: number;
     button: DjmaxButton;
-    pattern: DjmaxPattern;
+    patternType: DjmaxPattern;
     score: number;
     fullCombo: NumberBoolean;
 }
@@ -29,7 +29,7 @@ const insertScore = async (userId: number, data: ScoreData[]) => {
     const processed: QueryDeepPartialEntity<Score>[] = data.map((score) => ({
         userId,
         score: score.score,
-        patternType: score.pattern,
+        patternType: score.patternType,
         fullCombo: score.fullCombo,
         songTitle: score.songTitle,
         button: score.button
@@ -92,7 +92,10 @@ const getScores = async (username: string) => {
     const repo = getRepository(Score);
     return repo.find({
         where: {
-            userId
+            userId,
+            pattern: {
+
+            }
         },
         relations: ["pattern"]
     });
@@ -125,7 +128,7 @@ const getBoardScores = async (username: string, button: DjmaxButton, board: Boar
             where: {
                 button,
                 pattern: {
-                    pattern: "SC",
+                    patternType: "SC",
                     button
                 }
             },
@@ -178,7 +181,7 @@ const getBoardScores = async (username: string, button: DjmaxButton, board: Boar
                 button,
                 pattern: {
                     level: MoreThanOrEqual(12),
-                    pattern: Not("SC"),
+                    patternType: Not("SC"),
                     button
                 }
             },
@@ -191,7 +194,7 @@ const getBoardScores = async (username: string, button: DjmaxButton, board: Boar
             button,
             pattern: {
                 level: LessThan(12),
-                pattern: Not("SC"),
+                patternType: Not("SC"),
                 button
             }
         },

@@ -64,7 +64,7 @@ class Score {
     @JoinColumn([
         { name: "SONG_TITLE", referencedColumnName: "songTitle" },
         { name: "BUTTON", referencedColumnName: "button" },
-        { name: "PATTERN", referencedColumnName: "pattern" }
+        { name: "PATTERN", referencedColumnName: "patternType" }
     ])
         pattern!: Pattern;
 }

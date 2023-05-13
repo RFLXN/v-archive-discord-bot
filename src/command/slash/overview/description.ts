@@ -2,6 +2,8 @@ import { DjmaxButton, TierResponse } from "v-archive-api-client";
 import { Score } from "../../../db/entity/score";
 
 const createEmbedDescription = (username: string, totalPatterns: number, scores: Score[]) => {
+    console.log(scores);
+
     const sorted = scores
         .sort((a, b) => {
             if (!b?.pattern?.floor && !a?.pattern?.floor) {
